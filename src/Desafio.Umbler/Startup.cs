@@ -1,5 +1,7 @@
 ﻿using System;
 using Desafio.Umbler.Models;
+using Desafio.Umbler.Repository;
+using Desafio.Umbler.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +24,7 @@ namespace Desafio.Umbler
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-                var connectionString = Configuration.GetConnectionString("DefaultConnection");
+                var connectionString = Environment.GetEnvironmentVariable("MySqlConnectionString");
 
                 // Replace with your server version and type.
                 // Use 'MariaDbServerVersion' for MariaDB.
@@ -43,6 +45,9 @@ namespace Desafio.Umbler
 
 
             services.AddControllersWithViews();
+            services.AddScoped<DomainService>();
+
+            services.AddScoped<DomainRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
