@@ -24,25 +24,34 @@ namespace Desafio.Umbler
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-                var connectionString = Environment.GetEnvironmentVariable("MySqlConnectionString");
+            var connectionString = Environment.GetEnvironmentVariable("MySqlConnectionString");
 
-                // Replace with your server version and type.
-                // Use 'MariaDbServerVersion' for MariaDB.
-                // Alternatively, use 'ServerVersion.AutoDetect(connectionString)'.
-                // For common usages, see pull request #1233.
-                var serverVersion = new MySqlServerVersion(new Version(8, 0, 27));
+            // Replace with your server version and type.
+            // Use 'MariaDbServerVersion' for MariaDB.
+            // Alternatively, use 'ServerVersion.AutoDetect(connectionString)'.
+            // For common usages, see pull request #1233.
+            var serverVersion = new MySqlServerVersion(new Version(8, 0, 27));
 
-                // Replace 'YourDbContext' with the name of your own DbContext derived class.
-                services.AddDbContext<DatabaseContext>(
-                    dbContextOptions => dbContextOptions
-                        .UseMySql(connectionString, serverVersion)
-                        // The following three options help with debugging, but should
-                        // be changed or removed for production.
-                        .LogTo(Console.WriteLine, LogLevel.Information)
-                        .EnableSensitiveDataLogging()
-                        .EnableDetailedErrors()
-                );
+            // Replace 'YourDbContext' with the name of your own DbContext derived class.
+            services.AddDbContext<DatabaseContext>(
+                dbContextOptions => dbContextOptions
+                    .UseMySql(connectionString, serverVersion)
+                    // The following three options help with debugging, but should
+                    // be changed or removed for production.
+                    .LogTo(Console.WriteLine, LogLevel.Information)
+                    .EnableSensitiveDataLogging()
+                    .EnableDetailedErrors()
+            );
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowAnyOrigin();
+                });
+            });
 
             services.AddControllersWithViews();
             services.AddScoped<DomainService>();
@@ -62,7 +71,7 @@ namespace Desafio.Umbler
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
+            app.UseCors();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

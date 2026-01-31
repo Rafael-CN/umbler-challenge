@@ -1,0 +1,119 @@
+﻿@page "/"
+@using Desafio.Umbler.Client.Models
+@inject HttpClient Http
+
+<PageTitle>Pesquisa de Domínio - Umbler</PageTitle>
+
+<section id="domain-search">
+    <div class="container py-4 pb-md-5">
+        <div class="row">
+            <div class="col-lg-9 col-md-8">
+                <label class="sr-only" for="txt-search">Domínio</label>
+                <input class="form-control form-control-lg domain"
+                       id="txt-search"
+                       placeholder="Digite o Domínio que deseja pesquisar"
+                       type="text"
+                       @bind="domainInput"
+                       @bind:event="oninput"
+                       @onkeypress="HandleKeyPress"
+                       disabled="@isLoading" />
+            </div>
+            <div class="col-lg-3 col-md-4 text-xs-right">
+                <button type="button"
+                        class="btn btn-success btn-block btn-lg text-xs-center"
+                        @onclick="SearchDomain"
+                        disabled="@isLoading">
+
+                    @if (isLoading)
+                    {
+                        <span class="spinner-border spinner-border-sm mr-1"></span>
+                        <span>Pesquisando...</span>
+                    }
+                    else
+                    {
+                        <i class="icon icon-search icon-white mr-1"></i>
+                        <span>Pesquisar</span>
+                    }
+                </button>
+            </div>
+        </div>
+
+        @if (errorMessage != null)
+        {
+            <div class="alert alert-danger mt-4" role="alert">
+                <strong>Erro:</strong> @errorMessage
+            </div>
+        }
+
+        @if (result != null)
+        {
+            <div class="container w-100 mt-4">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">Resultado da Pesquisa</h5>
+                    </div>
+                    <div class="card-body">
+                        <dl class="row mb-0">
+                            <dt class="col-sm-3">Domínio:</dt>
+                            <dd class="col-sm-9">@result.Name</dd>
+
+                            <dt class="col-sm-3">IP:</dt>
+                            <dd class="col-sm-9"><code>@result.Ip</code></dd>
+
+                            <dt class="col-sm-3">Hospedado em:</dt>
+                            <dd class="col-sm-9">
+                                <span class="badge bg-primary">@result.HostedAt</span>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+@code {
+    private string? domainInput;
+    private DomainDTO? result;
+    private string? errorMessage;
+    private bool isLoading = false;
+
+    private async Task SearchDomain()
+    {
+        errorMessage = null;
+        result = null;
+
+        if (string.IsNullOrWhiteSpace(domainInput))
+        {
+            errorMessage = "Por favor, digite um domínio válido.";
+            return;
+        }
+
+        try
+        {
+            isLoading = true;
+
+            result = await Http.GetFromJsonAsync<DomainDTO>($"api/domain/{domainInput}");
+        }
+        catch (HttpRequestException ex)
+        {
+            errorMessage = $"Erro ao buscar domínio: {ex.Message}";
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Erro inesperado: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task HandleKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && !isLoading)
+        {
+            await SearchDomain();
+        }
+    }
+}

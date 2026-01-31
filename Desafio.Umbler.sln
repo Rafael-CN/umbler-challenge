@@ -1,3 +1,4 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
@@ -7,6 +8,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desafio.Umbler", "src\Desafio.Umbler\Desafio.Umbler.csproj", "{AB53484F-8170-46D1-A0F6-254EDAFDA9DA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desafio.Umbler.Test", "src\Desafio.Umbler.Test\Desafio.Umbler.Test.csproj", "{B5212D4A-EC08-4FAF-9BF3-856B2EF7C467}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desafio.Umbler.Client", "src\Desafio.Umbler.Client\Desafio.Umbler.Client.csproj", "{85150BFD-66A9-4CD5-A5C2-62BBDA27D68D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +45,18 @@ Global
 		{B5212D4A-EC08-4FAF-9BF3-856B2EF7C467}.Release|x64.Build.0 = Release|Any CPU
 		{B5212D4A-EC08-4FAF-9BF3-856B2EF7C467}.Release|x86.ActiveCfg = Release|Any CPU
 		{B5212D4A-EC08-4FAF-9BF3-856B2EF7C467}.Release|x86.Build.0 = Release|Any CPU
+		{85150BFD-66A9-4CD5-A5C2-62BBDA27D68D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85150BFD-66A9-4CD5-A5C2-62BBDA27D68D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85150BFD-66A9-4CD5-A5C2-62BBDA27D68D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{85150BFD-66A9-4CD5-A5C2-62BBDA27D68D}.Debug|x64.Build.0 = Debug|Any CPU
+		{85150BFD-66A9-4CD5-A5C2-62BBDA27D68D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{85150BFD-66A9-4CD5-A5C2-62BBDA27D68D}.Debug|x86.Build.0 = Debug|Any CPU
+		{85150BFD-66A9-4CD5-A5C2-62BBDA27D68D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85150BFD-66A9-4CD5-A5C2-62BBDA27D68D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85150BFD-66A9-4CD5-A5C2-62BBDA27D68D}.Release|x64.ActiveCfg = Release|Any CPU
+		{85150BFD-66A9-4CD5-A5C2-62BBDA27D68D}.Release|x64.Build.0 = Release|Any CPU
+		{85150BFD-66A9-4CD5-A5C2-62BBDA27D68D}.Release|x86.ActiveCfg = Release|Any CPU
+		{85150BFD-66A9-4CD5-A5C2-62BBDA27D68D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +64,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{AB53484F-8170-46D1-A0F6-254EDAFDA9DA} = {241AF8B6-38D7-4761-AC45-48E8D60C73E7}
 		{B5212D4A-EC08-4FAF-9BF3-856B2EF7C467} = {241AF8B6-38D7-4761-AC45-48E8D60C73E7}
+		{85150BFD-66A9-4CD5-A5C2-62BBDA27D68D} = {241AF8B6-38D7-4761-AC45-48E8D60C73E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {98EF7103-B2B5-4C41-95C1-867823FB313B}
