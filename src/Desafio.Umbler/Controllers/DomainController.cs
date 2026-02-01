@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Desafio.Umbler.Controllers.DTOs;
 using Desafio.Umbler.Services;
+using Desafio.Umbler.Validators;
+using System;
 
 namespace Desafio.Umbler.Controllers
 {
@@ -18,16 +20,27 @@ namespace Desafio.Umbler.Controllers
         [HttpGet, Route("domain/{domainName}")]
         public async Task<IActionResult> Get(string domainName) 
         {
-            var domain = await _domainService.GetDomainAsync(domainName);
-
-            DomainDTO dto = new()
+            if (!DomainValidator.IsValid(domainName, out string errorMessage))
             {
-                Name = domain.Name,
-                Ip = domain.Ip,
-                HostedAt = domain.HostedAt
-            };
+                return BadRequest(new { error = errorMessage });
+            }
 
-            return Ok(dto);
+            try
+            {
+                var domain = await _domainService.GetDomainAsync(domainName);
+                if (domain == null || string.IsNullOrEmpty(domain.Ip))
+                {
+                    return NotFound(new { error = "Não foi possível obter informações do domínio" });
+                }
+
+
+                return Ok(new DomainDTO(domain));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { error = "Erro interno inesperado ao processar a requisição" });
+            }
+            
         }
     }
 }

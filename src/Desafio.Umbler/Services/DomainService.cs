@@ -1,11 +1,12 @@
-﻿using Desafio.Umbler.Models;
+﻿#nullable enable
+
+using Desafio.Umbler.Models;
 using Desafio.Umbler.Repository;
 using Desafio.Umbler.Services.Interfaces;
 using DnsClient;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Whois.NET;
 
 namespace Desafio.Umbler.Services
 {
@@ -22,34 +23,32 @@ namespace Desafio.Umbler.Services
             _lookupClient = lookupClient;
         }
 
-        public async Task<Domain> GetDomainAsync(string domainName)
+        public async Task<Domain?> GetDomainAsync(string domainName)
         {
             var domain = await _domainRepository.GetDomainByNameAsync(domainName);
-            if (domain == null)
+            if (domain == null || TtlExpired(domain))
             {
                 domain = await LookupDomainAsync(domainName);
-            } 
-            else 
-            {
-                if (DateTime.Now.Subtract(domain.UpdatedAt).TotalMinutes > domain.Ttl)
+
+                if (domain != null && !string.IsNullOrEmpty(domain.Ip))
                 {
-                    domain = await LookupDomainAsync(domainName);
+                    await _domainRepository.UpsertDomainAsync(domain);
                 }
             }
 
-            await _domainRepository.UpsertDomainAsync(domain);
             return domain;
         }
 
-        private async Task<Domain> LookupDomainAsync(string domainName)
+        private async Task<Domain?> LookupDomainAsync(string domainName)
         {
-            var response = await _whoIsClient.QueryAsync(domainName);
             var result = await _lookupClient.QueryAsync(domainName, QueryType.ANY);
 
             var record = result.Answers.ARecords().FirstOrDefault();
-            var address = record?.Address;
-            var ip = address?.ToString();
+            if (record == null) return null;
 
+            var ip = record.Address.ToString();
+
+            var response = await _whoIsClient.QueryAsync(domainName);
             var hostResponse = await _whoIsClient.QueryAsync(ip);
 
             return new Domain
@@ -61,6 +60,12 @@ namespace Desafio.Umbler.Services
                 Ttl = record?.TimeToLive ?? 0,
                 HostedAt = hostResponse.OrganizationName
             };
+        }
+
+        private static bool TtlExpired(Domain domain)
+        {
+            var elapsedMinutes = DateTime.Now.Subtract(domain.UpdatedAt).TotalMinutes;
+            return elapsedMinutes >= domain.Ttl;
         }
     }
 }
