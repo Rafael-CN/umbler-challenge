@@ -2,6 +2,8 @@
 using Desafio.Umbler.Models;
 using Desafio.Umbler.Repository;
 using Desafio.Umbler.Services;
+using Desafio.Umbler.Services.Interfaces;
+using Desafio.Umbler.Services.Wrappers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -54,8 +56,11 @@ namespace Desafio.Umbler
             });
 
             services.AddControllersWithViews();
-            services.AddScoped<DomainService>();
 
+            services.AddScoped<IWhoIsClient, WhoIsClientWrapper>();
+            services.AddScoped<IDnsLookupClient, DnsLookupClientWrapper>();
+
+            services.AddScoped<DomainService>();
             services.AddScoped<DomainRepository>();
         }
 

@@ -1,5 +1,6 @@
 ﻿using Desafio.Umbler.Models;
 using Desafio.Umbler.Repository;
+using Desafio.Umbler.Services.Interfaces;
 using DnsClient;
 using System;
 using System.Linq;
@@ -11,10 +12,14 @@ namespace Desafio.Umbler.Services
     public class DomainService
     {
         private readonly DomainRepository _domainRepository;
+        private readonly IWhoIsClient _whoIsClient;
+        private readonly IDnsLookupClient _lookupClient;
 
-        public DomainService(DomainRepository domainRepository)
+        public DomainService(DomainRepository domainRepository, IWhoIsClient whoIsClient, IDnsLookupClient lookupClient)
         {
             _domainRepository = domainRepository;
+            _whoIsClient = whoIsClient;
+            _lookupClient = lookupClient;
         }
 
         public async Task<Domain> GetDomainAsync(string domainName)
@@ -36,17 +41,16 @@ namespace Desafio.Umbler.Services
             return domain;
         }
 
-        private static async Task<Domain> LookupDomainAsync(string domainName)
+        private async Task<Domain> LookupDomainAsync(string domainName)
         {
-            var response = await WhoisClient.QueryAsync(domainName);
+            var response = await _whoIsClient.QueryAsync(domainName);
+            var result = await _lookupClient.QueryAsync(domainName, QueryType.ANY);
 
-            var lookup = new LookupClient();
-            var result = await lookup.QueryAsync(domainName, QueryType.ANY);
             var record = result.Answers.ARecords().FirstOrDefault();
             var address = record?.Address;
             var ip = address?.ToString();
 
-            var hostResponse = await WhoisClient.QueryAsync(ip);
+            var hostResponse = await _whoIsClient.QueryAsync(ip);
 
             return new Domain
             {
