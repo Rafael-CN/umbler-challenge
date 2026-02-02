@@ -1,0 +1,94 @@
+/* ========================================
+   Skeleton Loading
+   ======================================== */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.03) 0%,
+        rgba(255, 255, 255, 0.08) 20%,
+        rgba(74, 125, 255, 0.12) 50%,
+        rgba(255, 255, 255, 0.08) 80%,
+        rgba(255, 255, 255, 0.03) 100%
+    );
+    background-size: 300% 100%;
+    animation: shimmer 2s ease-in-out infinite;
+    border-radius: var(--radius-sm);
+}
+
+.skeleton-text {
+    height: 1rem;
+    margin: 0.5rem 0;
+}
+
+.skeleton-text-lg {
+    height: 1.5rem;
+    width: 60%;
+}
+
+.skeleton-text-sm {
+    height: 0.875rem;
+    width: 40%;
+}
+
+/* Skeleton card wrapper for loading state */
+.skeleton-card {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.skeleton-card .result-item {
+    opacity: 0.7;
+}
+
+.skeleton-card h3 {
+    color: var(--color-text-secondary);
+    opacity: 0.7;
+}
+
+/* ========================================
+   Spinner
+   ======================================== */
+.spinner {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--color-text-primary);
+    animation: spin 0.8s linear infinite;
+    margin-right: 0.5rem;
+}
+
+.spinner-lg {
+    width: 2rem;
+    height: 2rem;
+    border-width: 3px;
+}
+
+/* ========================================
+   Loading Dots
+   ======================================== */
+.loading-dots {
+    display: inline-flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.loading-dots span {
+    width: 0.375rem;
+    height: 0.375rem;
+    background: currentColor;
+    border-radius: 50%;
+    animation: dotBounce 1.4s ease-in-out infinite both;
+}
+
+.loading-dots span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+.loading-dots span:nth-child(3) {
+    animation-delay: 0s;
+}

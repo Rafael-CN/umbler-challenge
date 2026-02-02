@@ -1,0 +1,50 @@
+/* ========================================
+   Typography
+   ======================================== */
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 1rem 0;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+h1,
+.main-content h1 {
+    line-height: 1;
+    font-size: var(--font-size-3xl);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+}
+
+.text-gradient {
+    background: var(--color-accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    font-size: 6rem
+}
+
+.text-muted {
+    margin-top: 2rem;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-xl);
+    max-width: 95%;
+}
+
+/* ========================================
+   Utilities
+   ======================================== */
+.text-center {
+    text-align: center;
+    justify-items: center;
+}
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }

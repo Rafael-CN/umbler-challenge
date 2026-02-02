@@ -1,0 +1,75 @@
+@using Desafio.Umbler.Client.Services
+
+<div class="search-container">
+    <div class="search-box @(IsLoading ? "search-box--loading" : "")">
+        <input type="text"
+               placeholder="@Placeholder"
+               value="@Value"
+               @oninput="OnInputChanged"
+               @onkeypress="HandleKeyPress"
+               disabled="@IsLoading" />
+        <button @onclick="HandleSearch" disabled="@IsLoading">
+            @if (IsLoading)
+            {
+                <span class="spinner"></span>
+                <span>Pesquisando</span>
+            }
+            else
+            {
+                <span>Pesquisar</span>
+            }
+        </button>
+    </div>
+
+    @if (!string.IsNullOrEmpty(ValidationMessage))
+    {
+        <div class="validation-message">@ValidationMessage</div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<string?> ValueChanged { get; set; }
+
+    [Parameter]
+    public string Placeholder { get; set; } = "exemplo.com.br";
+
+    [Parameter]
+    public bool IsLoading { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnSearch { get; set; }
+
+    private string? ValidationMessage { get; set; }
+
+    private async Task OnInputChanged(ChangeEventArgs e)
+    {
+        Value = e.Value?.ToString();
+        await ValueChanged.InvokeAsync(Value);
+    }
+
+    private async Task HandleSearch()
+    {
+        ValidationMessage = null;
+
+        if (!DomainValidationService.IsValid(Value, out var errorMessage))
+        {
+            ValidationMessage = errorMessage;
+            return;
+        }
+
+        var normalizedDomain = DomainValidationService.Normalize(Value!);
+        await OnSearch.InvokeAsync(normalizedDomain);
+    }
+
+    private async Task HandleKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && !IsLoading)
+        {
+            await HandleSearch();
+        }
+    }
+}

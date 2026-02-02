@@ -1,0 +1,44 @@
+/* ========================================
+   Design Tokens - Umbler Theme
+   ======================================== */
+:root {
+    /* Colors */
+    --color-bg-primary: #0a1628;
+    --color-bg-secondary: #0d1f3c;
+    --color-bg-card: rgba(255, 255, 255, 0.05);
+    --color-accent: #4a7dff;
+    --color-accent-light: #7ba4ff;
+    --color-accent-gradient: linear-gradient(180deg, #80a4ff 0%, #3c6fdd 100%);
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #a0b3d1;
+    --color-text-muted: #6b7d99;
+    --color-error: #ff5757;
+    --color-error-bg: rgba(255, 87, 87, 0.1);
+    --color-warning: #ffb347;
+    --color-success: #4ade80;
+    --color-input-bg: #ffffff;
+    --color-input-text: #1a1a2e;
+    --color-input-placeholder: #9ca3af;
+    /* Borders */
+    --radius-pill: 50px;
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-sm: 8px;
+    /* Shadows */
+    --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.3);
+    --shadow-glow: 0 0 40px rgba(74, 125, 255, 0.2);
+    --shadow-input: 0 4px 20px rgba(0, 0, 0, 0.15);
+    /* Typography */
+    --font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    --font-size-3xl: 5rem;
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 400ms ease;
+}

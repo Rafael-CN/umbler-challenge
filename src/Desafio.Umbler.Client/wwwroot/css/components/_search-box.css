@@ -1,0 +1,82 @@
+/* ========================================
+   Search Box Component
+   ======================================== */
+.search-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: var(--color-input-bg);
+    border-radius: var(--radius-pill);
+    padding: 0.35rem 0.35rem 0.35rem 1.15rem;
+    box-shadow: 0 0 0 10px rgba(85, 124, 242, 0.4), 0 0 60px rgba(85, 124, 242, 0.6);
+    transition: box-shadow var(--transition-normal);
+}
+
+.search-box:focus-within {
+    border-width: 15px;
+    box-shadow: 0 0 0 15px rgba(85, 124, 242, 0.25), 0 0 80px rgba(85, 124, 242, 0.8);
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-family: 'Poppins', sans-serif;
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    color: var(--color-input-text);
+    padding: 0.75rem 0;
+    outline: none;
+}
+
+.search-box input::placeholder {
+    color: var(--color-input-placeholder);
+}
+
+.search-box button {
+    background: var(--color-accent);
+    color: var(--color-text-primary);
+    border: none;
+    border-radius: var(--radius-pill);
+    padding: 0.75rem 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform var(--transition-fast), opacity var(--transition-fast);
+    white-space: nowrap;
+}
+
+.search-box button:hover:not(:disabled) {
+    transform: scale(1.02);
+    opacity: 0.95;
+}
+
+.search-box button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Loading state */
+.search-box--loading {
+    opacity: 0.85;
+    pointer-events: none;
+}
+
+.search-box--loading input {
+    color: var(--color-input-placeholder);
+}
+
+/* Validation message */
+.validation-message {
+    color: var(--color-error);
+    font-size: var(--font-size-sm);
+    margin-top: 0.75rem;
+    text-align: center;
+    animation: fadeInShake var(--transition-normal);
+}

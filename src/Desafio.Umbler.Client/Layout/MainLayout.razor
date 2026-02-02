@@ -1,8 +1,28 @@
-﻿@inherits LayoutComponentBase
-<div class="page">
-    <main>
-        <article class="content px-4">
-            @Body
-        </article>
+@inherits LayoutComponentBase
+
+<div class="app-container">
+    <div class="background-wrapper"></div>
+
+    <header class="app-header">
+        <a href="/" title="Umbler">
+            <img src="images/umbler-logo.svg" alt="Umbler" class="app-logo" />
+        </a>
+    </header>
+
+    <main class="main-content">
+        @Body
     </main>
+
+</div>
+
+<div class="footer-container">
+    <footer class="app-footer">
+        <div>
+            <img src="images/umbler-logo.svg" alt="Umbler" class="footer-logo" />
+        </div>
+        <p>
+            Desenvolvido como teste técnico para
+            <a href="https://www.umbler.com" target="_blank" rel="noopener noreferrer">Umbler</a>
+        </p>
+    </footer>
 </div>

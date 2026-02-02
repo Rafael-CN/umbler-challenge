@@ -1,0 +1,96 @@
+/* ========================================
+   App Container
+   ======================================== */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    background-image: linear-gradient(0deg, #0a1024 0%, hsl(225 54% 10% / 1) 65%, hsl(225 51% 20% / 1) 100%);
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* ========================================
+   Background with Waves
+   ======================================== */
+.background-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    background-image: url('../../images/background-waves.svg');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: contain;
+}
+
+/* ========================================
+   Header
+   ======================================== */
+.app-header {
+    position: relative;
+    z-index: 10;
+    padding: 2rem 2rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.app-logo {
+    height: 36px;
+    width: auto;
+    transition: opacity var(--transition-normal);
+}
+
+.app-logo:hover {
+    opacity: 0.8;
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+.footer-container {
+    background-color: #547CF3;
+}
+
+.app-footer {
+    position: relative;
+    z-index: 10;
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-sm);
+}
+
+.app-footer p {
+    margin: 0;
+}
+
+.app-footer a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+}
+
+.app-footer a:hover {
+    opacity: 0.8;
+}
+
+.footer-logo {
+    height: 28px;
+    width: auto;
+    margin-bottom: 0.75rem;
+    opacity: 0.8;
+}

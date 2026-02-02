@@ -1,0 +1,22 @@
+@using Desafio.Umbler.Client.Models
+
+<div class="result-card">
+    <h3>Resultado da pesquisa</h3>
+    <div class="result-item">
+        <span class="result-label">Domínio</span>
+        <span class="result-value">@Domain.Name</span>
+    </div>
+    <div class="result-item">
+        <span class="result-label">IP</span>
+        <span class="result-value"><code>@Domain.Ip</code></span>
+    </div>
+    <div class="result-item">
+        <span class="result-label">Hospedado em</span>
+        <span class="result-value">@Domain.HostedAt</span>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public DomainDTO Domain { get; set; } = default!;
+}

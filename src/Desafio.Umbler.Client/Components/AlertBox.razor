@@ -1,0 +1,41 @@
+@if (!string.IsNullOrEmpty(Message))
+{
+    <div class="alert-box alert-@Variant.ToString().ToLower()">
+        <span class="alert-icon">@GetIcon()</span>
+        <div class="alert-content">
+            @if (!string.IsNullOrEmpty(Title))
+            {
+                <div class="alert-title">@Title</div>
+            }
+            <div class="alert-message">@Message</div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? Message { get; set; }
+
+    [Parameter]
+    public AlertVariant Variant { get; set; } = AlertVariant.Error;
+
+    public enum AlertVariant
+    {
+        Error,
+        Warning,
+        Info,
+        Success
+    }
+
+    private string GetIcon() => Variant switch
+    {
+        AlertVariant.Error => "\u26A0",
+        AlertVariant.Warning => "\u26A0",
+        AlertVariant.Info => "\u2139",
+        AlertVariant.Success => "\u2713",
+        _ => "\u26A0"
+    };
+}
